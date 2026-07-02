@@ -6,5 +6,5 @@ features:
 
 tnt-reset:
   animation:
-    blocks-per-step: 4
-    interval-ticks: 2
+    blocks-per-step: 24
+    interval-ticks: 1

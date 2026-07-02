@@ -81,8 +81,8 @@ public final class TntResetService {
         List<BlockState> states = new ArrayList<>(blockStates.values());
         int totalBlocks = states.size();
         blockStates.clear();
-        int blocksPerStep = config.integer("tnt-reset.animation.blocks-per-step", 4);
-        long interval = config.integer("tnt-reset.animation.interval-ticks", 2);
+        int blocksPerStep = config.integer("tnt-reset.animation.blocks-per-step", 24);
+        long interval = config.integer("tnt-reset.animation.interval-ticks", 1);
 
         resetTask = Bukkit.getScheduler().runTaskTimer(plugin, new Runnable() {
 
