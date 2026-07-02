@@ -30,10 +30,10 @@ public final class FunPlugin extends JavaPlugin {
         saveConfig();
 
         FunConfig config = new FunConfig(this);
-        CreeperExplosionDialog creeperExplosionDialog = new CreeperExplosionDialog(config);
+        CreeperExplosionDialog creeperExplosionDialog = new CreeperExplosionDialog();
         creeperDialogService = new CreeperDialogService(this, config, creeperExplosionDialog);
         tntResetService = new TntResetService(this, config);
-        FunMenu funMenu = new FunMenu(config, creeperDialogService, tntResetService);
+        FunMenu funMenu = new FunMenu(creeperDialogService, tntResetService);
 
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(new CreeperExplosionListener(creeperDialogService), this);
@@ -42,7 +42,7 @@ public final class FunPlugin extends JavaPlugin {
         pluginManager.registerEvents(new TntExplosionListener(tntResetService), this);
         pluginManager.registerEvents(new FunMenuListener(funMenu, creeperDialogService, tntResetService), this);
 
-        FunCommand funCommand = new FunCommand(funMenu, config);
+        FunCommand funCommand = new FunCommand(funMenu);
         PluginCommand command = Objects.requireNonNull(getCommand("fun"));
         command.setExecutor(funCommand);
     }

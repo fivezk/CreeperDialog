@@ -4,44 +4,7 @@ features:
   tnt-reset:
     enabled: false
 
-menu:
-  title: "<dark_green>Fun"
-  state:
-    enabled: "<green>Aktiviert"
-    disabled: "<red>Deaktiviert"
-  items:
-    creeper-dialog:
-      material: CREEPER_HEAD
-      name: "<green>Creeper Dialog"
-    tnt-reset:
-      material: TNT
-      name: "<red>TNT Reset"
-    tnt-reset-button:
-      material: RECOVERY_COMPASS
-      name: "<gold>Blöcke zurücksetzen"
-      lore: "<gray>Setzt gespeicherte TNT-Schäden animiert zurück."
-      blocks: "<gray>Gespeicherte Blöcke: <yellow>%blocks%"
-
-creeper-dialog:
-  title: "<dark_green>Creeper Explosion"
-  external-title: "Creeper Explosion"
-  body: "Ein Creeper möchte bei dir explodieren. Was soll passieren?"
-  buttons:
-    explode:
-      text: "<green>Ja, explodieren."
-      tooltip: "Der Creeper darf explodieren."
-      width: 180
-    deny:
-      text: "<red>Nein, gerade nicht."
-      tooltip: "Der Creeper darf nicht explodieren."
-      width: 180
-
 tnt-reset:
   animation:
     blocks-per-step: 4
     interval-ticks: 2
-
-messages:
-  player-only: "<red>Dieser Befehl kann nur von Spielern genutzt werden."
-  tnt-reset-finished: "<green>Explodierte Blöcke zurückgesetzt."
-  tnt-reset-blocks: "<gray>Blöcke: <yellow>%blocks%"

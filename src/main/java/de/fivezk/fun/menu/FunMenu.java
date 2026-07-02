@@ -1,9 +1,9 @@
 package de.fivezk.fun.menu;
 
-import de.fivezk.fun.config.FunConfig;
 import de.fivezk.fun.creeper.service.CreeperDialogService;
 import de.fivezk.fun.tnt.service.TntResetService;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -19,36 +19,35 @@ public final class FunMenu {
     public static final int CREEPER_SLOT = 11;
     public static final int TNT_SLOT = 15;
     public static final int RESET_SLOT = 22;
-    private final FunConfig config;
     private final CreeperDialogService creeperDialogService;
     private final TntResetService tntResetService;
 
-    public FunMenu(FunConfig config, CreeperDialogService creeperDialogService, TntResetService tntResetService) {
-        this.config = config;
+    public FunMenu(CreeperDialogService creeperDialogService, TntResetService tntResetService) {
         this.creeperDialogService = creeperDialogService;
         this.tntResetService = tntResetService;
     }
 
     public void open(Player player) {
-        Inventory inventory = Bukkit.createInventory(new FunMenuHolder(), 27, config.message("menu.title"));
+        Inventory inventory = Bukkit.createInventory(new FunMenuHolder(), 27, Component.text("Fun", NamedTextColor.DARK_GREEN));
         inventory.setItem(CREEPER_SLOT, createItem(
-                config.material("menu.items.creeper-dialog.material", Material.CREEPER_HEAD),
-                config.message("menu.items.creeper-dialog.name"),
+                Material.CREEPER_HEAD,
+                Component.text("Creeper Dialog", NamedTextColor.GREEN),
                 stateLore(creeperDialogService.enabled())
         ));
         inventory.setItem(TNT_SLOT, createItem(
-                config.material("menu.items.tnt-reset.material", Material.TNT),
-                config.message("menu.items.tnt-reset.name"),
+                Material.TNT,
+                Component.text("TNT Reset", NamedTextColor.RED),
                 stateLore(tntResetService.enabled())
         ));
 
         if (tntResetService.enabled()) {
             inventory.setItem(RESET_SLOT, createItem(
-                    config.material("menu.items.tnt-reset-button.material", Material.RECOVERY_COMPASS),
-                    config.message("menu.items.tnt-reset-button.name"),
+                    Material.RECOVERY_COMPASS,
+                    Component.text("Blöcke zurücksetzen", NamedTextColor.GOLD),
                     List.of(
-                            config.message("menu.items.tnt-reset-button.lore"),
-                            config.message("menu.items.tnt-reset-button.blocks", "%blocks%", String.valueOf(tntResetService.savedBlocks()))
+                            Component.text("Setzt gespeicherte TNT-Schäden animiert zurück.", NamedTextColor.GRAY),
+                            Component.text("Gespeicherte Blöcke: ", NamedTextColor.GRAY)
+                                    .append(Component.text(tntResetService.savedBlocks(), NamedTextColor.YELLOW))
                     )
             ));
         }
@@ -57,8 +56,9 @@ public final class FunMenu {
     }
 
     private List<Component> stateLore(boolean enabled) {
-        String path = enabled ? "menu.state.enabled" : "menu.state.disabled";
-        return List.of(config.message(path));
+        return List.of(enabled
+                ? Component.text("Aktiviert", NamedTextColor.GREEN)
+                : Component.text("Deaktiviert", NamedTextColor.RED));
     }
 
     private ItemStack createItem(Material material, Component name, List<Component> lore) {

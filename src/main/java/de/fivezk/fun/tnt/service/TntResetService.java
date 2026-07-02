@@ -11,6 +11,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.block.TNTPrimeEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -99,8 +101,9 @@ public final class TntResetService {
                 if (index >= states.size()) {
                     resetTask.cancel();
                     resetTask = null;
-                    player.sendMessage(config.message("messages.tnt-reset-finished"));
-                    player.sendMessage(config.message("messages.tnt-reset-blocks", "%blocks%", String.valueOf(totalBlocks)));
+                    player.sendMessage(Component.text("Explodierte Blöcke zurückgesetzt.", NamedTextColor.GREEN));
+                    player.sendMessage(Component.text("Blöcke: ", NamedTextColor.GRAY)
+                            .append(Component.text(totalBlocks, NamedTextColor.YELLOW)));
                 }
             }
         }, 0L, Math.max(1L, interval));
