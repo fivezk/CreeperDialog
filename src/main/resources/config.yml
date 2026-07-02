@@ -43,3 +43,5 @@ tnt-reset:
 
 messages:
   player-only: "<red>Dieser Befehl kann nur von Spielern genutzt werden."
+  tnt-reset-finished: "<green>Explodierte Blöcke zurückgesetzt."
+  tnt-reset-blocks: "<gray>Blöcke: <yellow>%blocks%"

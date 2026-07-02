@@ -7,6 +7,7 @@ import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -55,12 +56,13 @@ public final class TntResetService {
         return blockStates.size();
     }
 
-    public void reset() {
+    public void reset(Player player) {
         if (resetRunning() || blockStates.isEmpty()) {
             return;
         }
 
         List<BlockState> states = new ArrayList<>(blockStates.values());
+        int totalBlocks = states.size();
         blockStates.clear();
         int blocksPerStep = config.integer("tnt-reset.animation.blocks-per-step", 4);
         long interval = config.integer("tnt-reset.animation.interval-ticks", 2);
@@ -82,6 +84,8 @@ public final class TntResetService {
                 if (index >= states.size()) {
                     resetTask.cancel();
                     resetTask = null;
+                    player.sendMessage(config.message("messages.tnt-reset-finished"));
+                    player.sendMessage(config.message("messages.tnt-reset-blocks", "%blocks%", String.valueOf(totalBlocks)));
                 }
             }
         }, 0L, Math.max(1L, interval));

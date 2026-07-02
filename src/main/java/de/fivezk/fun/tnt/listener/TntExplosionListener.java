@@ -23,6 +23,11 @@ public final class TntExplosionListener implements Listener {
 
         if (tntResetService.handleExplosion(event.blockList())) {
             event.setCancelled(true);
+            return;
+        }
+
+        if (tntResetService.enabled()) {
+            event.setYield(0.0f);
         }
     }
 }

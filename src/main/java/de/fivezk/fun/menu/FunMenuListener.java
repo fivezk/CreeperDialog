@@ -44,7 +44,7 @@ public final class FunMenuListener implements Listener {
         }
 
         if (event.getRawSlot() == FunMenu.RESET_SLOT && tntResetService.enabled()) {
-            tntResetService.reset();
+            tntResetService.reset(player);
             player.closeInventory();
         }
     }
