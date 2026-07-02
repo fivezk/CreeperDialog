@@ -20,6 +20,7 @@ menu:
       material: RECOVERY_COMPASS
       name: "<gold>Blöcke zurücksetzen"
       lore: "<gray>Setzt gespeicherte TNT-Schäden animiert zurück."
+      blocks: "<gray>Gespeicherte Blöcke: <yellow>%blocks%"
 
 creeper-dialog:
   title: "<dark_green>Creeper Explosion"

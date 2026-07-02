@@ -51,6 +51,10 @@ public final class TntResetService {
         return false;
     }
 
+    public int savedBlocks() {
+        return blockStates.size();
+    }
+
     public void reset() {
         if (resetRunning() || blockStates.isEmpty()) {
             return;

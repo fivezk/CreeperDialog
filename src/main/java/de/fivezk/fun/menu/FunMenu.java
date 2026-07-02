@@ -46,7 +46,10 @@ public final class FunMenu {
             inventory.setItem(RESET_SLOT, createItem(
                     config.material("menu.items.tnt-reset-button.material", Material.RECOVERY_COMPASS),
                     config.message("menu.items.tnt-reset-button.name"),
-                    List.of(config.message("menu.items.tnt-reset-button.lore"))
+                    List.of(
+                            config.message("menu.items.tnt-reset-button.lore"),
+                            config.message("menu.items.tnt-reset-button.blocks", "%blocks%", String.valueOf(tntResetService.savedBlocks()))
+                    )
             ));
         }
 

@@ -36,6 +36,11 @@ public final class FunConfig {
         return miniMessage.deserialize(plugin.getConfig().getString(path, ""));
     }
 
+    public Component message(String path, String placeholder, String value) {
+        String message = plugin.getConfig().getString(path, "");
+        return miniMessage.deserialize(message.replace(placeholder, value));
+    }
+
     public int integer(String path, int fallback) {
         return plugin.getConfig().getInt(path, fallback);
     }
