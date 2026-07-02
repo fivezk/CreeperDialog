@@ -8,6 +8,7 @@ import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.TNTPrimeEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -52,7 +53,7 @@ public final class TntResetService {
         return false;
     }
 
-    public boolean handlePrime(Block block) {
+    public boolean handlePrime(Block block, TNTPrimeEvent.PrimeCause cause) {
         if (resetRunning()) {
             return true;
         }
@@ -62,7 +63,7 @@ public final class TntResetService {
         }
 
         blockStates.putIfAbsent(block.getLocation(), block.getState());
-        return false;
+        return cause == TNTPrimeEvent.PrimeCause.EXPLOSION;
     }
 
     public int savedBlocks() {

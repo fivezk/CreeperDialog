@@ -26,6 +26,8 @@ public final class FunPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         saveDefaultConfig();
+        getConfig().options().copyDefaults(true);
+        saveConfig();
 
         FunConfig config = new FunConfig(this);
         CreeperExplosionDialog creeperExplosionDialog = new CreeperExplosionDialog(config);

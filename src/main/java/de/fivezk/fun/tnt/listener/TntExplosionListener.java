@@ -34,7 +34,7 @@ public final class TntExplosionListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onTntPrime(TNTPrimeEvent event) {
-        if (tntResetService.handlePrime(event.getBlock())) {
+        if (tntResetService.handlePrime(event.getBlock(), event.getCause())) {
             event.setCancelled(true);
         }
     }
