@@ -5,6 +5,7 @@ import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.TNTPrimeEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 
 public final class TntExplosionListener implements Listener {
@@ -28,6 +29,13 @@ public final class TntExplosionListener implements Listener {
 
         if (tntResetService.enabled()) {
             event.setYield(0.0f);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onTntPrime(TNTPrimeEvent event) {
+        if (tntResetService.handlePrime(event.getBlock())) {
+            event.setCancelled(true);
         }
     }
 }

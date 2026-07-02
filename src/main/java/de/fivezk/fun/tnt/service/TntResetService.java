@@ -52,6 +52,19 @@ public final class TntResetService {
         return false;
     }
 
+    public boolean handlePrime(Block block) {
+        if (resetRunning()) {
+            return true;
+        }
+
+        if (!enabled()) {
+            return false;
+        }
+
+        blockStates.putIfAbsent(block.getLocation(), block.getState());
+        return false;
+    }
+
     public int savedBlocks() {
         return blockStates.size();
     }
@@ -75,6 +88,7 @@ public final class TntResetService {
             public void run() {
                 for (int i = 0; i < blocksPerStep && index < states.size(); i++) {
                     BlockState state = states.get(index++);
+                    state.getBlock().setType(state.getType(), false);
                     state.update(true, false);
                     Location location = state.getLocation().toCenterLocation();
                     location.getWorld().spawnParticle(Particle.HAPPY_VILLAGER, location, 6, 0.35, 0.35, 0.35, 0.0);
