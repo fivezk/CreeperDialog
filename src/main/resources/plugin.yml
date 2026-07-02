@@ -1,0 +1,8 @@
+name: Fun
+version: '${version}'
+author: 5zk
+main: de.fivezk.fun.FunPlugin
+api-version: '1.21.11'
+load: POSTWORLD
+commands:
+  fun:
