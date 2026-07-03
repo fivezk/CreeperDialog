@@ -18,7 +18,7 @@ public final class FunMenu {
 
     public static final int CREEPER_SLOT = 11;
     public static final int TNT_SLOT = 15;
-    public static final int RESET_SLOT = 22;
+    public static final int RESET_SLOT = 24;
     private final CreeperDialogService creeperDialogService;
     private final TntResetService tntResetService;
 
@@ -28,7 +28,7 @@ public final class FunMenu {
     }
 
     public void open(Player player) {
-        Inventory inventory = Bukkit.createInventory(new FunMenuHolder(), 27, Component.text("Fun", NamedTextColor.DARK_GREEN));
+        Inventory inventory = Bukkit.createInventory(new FunMenuHolder(), 36, Component.text("Fun", NamedTextColor.DARK_GREEN));
         inventory.setItem(CREEPER_SLOT, createItem(
                 Material.CREEPER_HEAD,
                 Component.text("Creeper Dialog", NamedTextColor.GREEN),
