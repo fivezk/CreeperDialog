@@ -1,6 +1,7 @@
 package de.fivezk.fun.menu;
 
 import de.fivezk.fun.creeper.service.CreeperDialogService;
+import de.fivezk.fun.penis.service.PenisBuilderService;
 import de.fivezk.fun.tnt.service.TntResetService;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -17,14 +18,17 @@ import java.util.List;
 public final class FunMenu {
 
     public static final int CREEPER_SLOT = 11;
+    public static final int PENIS_SLOT = 13;
     public static final int TNT_SLOT = 15;
     public static final int RESET_SLOT = 24;
     private final CreeperDialogService creeperDialogService;
     private final TntResetService tntResetService;
+    private final PenisBuilderService penisBuilderService;
 
-    public FunMenu(CreeperDialogService creeperDialogService, TntResetService tntResetService) {
+    public FunMenu(CreeperDialogService creeperDialogService, TntResetService tntResetService, PenisBuilderService penisBuilderService) {
         this.creeperDialogService = creeperDialogService;
         this.tntResetService = tntResetService;
+        this.penisBuilderService = penisBuilderService;
     }
 
     public void open(Player player) {
@@ -38,6 +42,11 @@ public final class FunMenu {
                 Material.TNT,
                 Component.text("TNT Reset", NamedTextColor.RED),
                 stateLore(tntResetService.enabled())
+        ));
+        inventory.setItem(PENIS_SLOT, createItem(
+                Material.PINK_WOOL,
+                Component.text("Penis Bauer", NamedTextColor.LIGHT_PURPLE),
+                stateLore(penisBuilderService.enabled())
         ));
 
         if (tntResetService.enabled()) {

@@ -9,6 +9,7 @@ import de.fivezk.fun.creeper.listener.PlayerConnectionListener;
 import de.fivezk.fun.creeper.service.CreeperDialogService;
 import de.fivezk.fun.menu.FunMenu;
 import de.fivezk.fun.menu.FunMenuListener;
+import de.fivezk.fun.penis.service.PenisBuilderService;
 import de.fivezk.fun.tnt.listener.TntExplosionListener;
 import de.fivezk.fun.tnt.service.TntResetService;
 import org.bukkit.Bukkit;
@@ -22,6 +23,7 @@ public final class FunPlugin extends JavaPlugin {
 
     private CreeperDialogService creeperDialogService;
     private TntResetService tntResetService;
+    private PenisBuilderService penisBuilderService;
 
     @Override
     public void onEnable() {
@@ -33,14 +35,15 @@ public final class FunPlugin extends JavaPlugin {
         CreeperExplosionDialog creeperExplosionDialog = new CreeperExplosionDialog();
         creeperDialogService = new CreeperDialogService(this, config, creeperExplosionDialog);
         tntResetService = new TntResetService(this, config);
-        FunMenu funMenu = new FunMenu(creeperDialogService, tntResetService);
+        penisBuilderService = new PenisBuilderService(config);
+        FunMenu funMenu = new FunMenu(creeperDialogService, tntResetService, penisBuilderService);
 
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(new CreeperExplosionListener(creeperDialogService), this);
         pluginManager.registerEvents(new CreeperDialogClickListener(creeperDialogService), this);
         pluginManager.registerEvents(new PlayerConnectionListener(creeperDialogService), this);
         pluginManager.registerEvents(new TntExplosionListener(tntResetService), this);
-        pluginManager.registerEvents(new FunMenuListener(funMenu, creeperDialogService, tntResetService), this);
+        pluginManager.registerEvents(new FunMenuListener(funMenu, creeperDialogService, tntResetService, penisBuilderService), this);
 
         FunCommand funCommand = new FunCommand(funMenu);
         PluginCommand command = Objects.requireNonNull(getCommand("fun"));
