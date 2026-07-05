@@ -1,7 +1,6 @@
 package de.fivezk.fun.menu;
 
 import de.fivezk.fun.creeper.service.CreeperDialogService;
-import de.fivezk.fun.penis.service.PenisBuilderService;
 import de.fivezk.fun.tnt.service.TntResetService;
 import de.fivezk.fun.wand.WandType;
 import de.fivezk.fun.wand.service.WandService;
@@ -15,14 +14,12 @@ public final class FunMenuListener implements Listener {
     private final FunMenu funMenu;
     private final CreeperDialogService creeperDialogService;
     private final TntResetService tntResetService;
-    private final PenisBuilderService penisBuilderService;
     private final WandService wandService;
 
-    public FunMenuListener(FunMenu funMenu, CreeperDialogService creeperDialogService, TntResetService tntResetService, PenisBuilderService penisBuilderService, WandService wandService) {
+    public FunMenuListener(FunMenu funMenu, CreeperDialogService creeperDialogService, TntResetService tntResetService, WandService wandService) {
         this.funMenu = funMenu;
         this.creeperDialogService = creeperDialogService;
         this.tntResetService = tntResetService;
-        this.penisBuilderService = penisBuilderService;
         this.wandService = wandService;
     }
 
@@ -46,12 +43,6 @@ public final class FunMenuListener implements Listener {
 
         if (event.getRawSlot() == FunMenu.TNT_SLOT) {
             tntResetService.setEnabled(!tntResetService.enabled());
-            funMenu.open(player);
-            return;
-        }
-
-        if (event.getRawSlot() == FunMenu.PENIS_SLOT) {
-            penisBuilderService.setEnabled(!penisBuilderService.enabled(), player);
             funMenu.open(player);
             return;
         }

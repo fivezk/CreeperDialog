@@ -13,6 +13,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.Bukkit;
 import org.bukkit.util.Vector;
 
 import java.util.List;
@@ -20,9 +21,11 @@ import java.util.Optional;
 
 public final class WandService {
 
+    private final JavaPlugin plugin;
     private final NamespacedKey wandKey;
 
     public WandService(JavaPlugin plugin) {
+        this.plugin = plugin;
         wandKey = new NamespacedKey(plugin, "wand");
     }
 
@@ -50,9 +53,19 @@ public final class WandService {
     public void shoot(Player player, WandType wandType) {
         Vector direction = player.getEyeLocation().getDirection().normalize();
         if (wandType == WandType.WITHER_SKULL) {
-            WitherSkull witherSkull = player.launchProjectile(WitherSkull.class);
+            WitherSkull witherSkull = player.getWorld().spawn(player.getEyeLocation().add(direction.multiply(1.5)), WitherSkull.class);
+            Vector velocity = player.getEyeLocation().getDirection().normalize().multiply(3.2);
+            witherSkull.setShooter(player);
             witherSkull.setCharged(true);
-            witherSkull.setVelocity(direction.multiply(1.8));
+            witherSkull.setGravity(false);
+            witherSkull.setDirection(player.getEyeLocation().getDirection().normalize());
+            witherSkull.setVelocity(velocity);
+            Bukkit.getScheduler().runTask(plugin, () -> {
+                if (witherSkull.isValid()) {
+                    witherSkull.setDirection(player.getEyeLocation().getDirection().normalize());
+                    witherSkull.setVelocity(velocity);
+                }
+            });
             return;
         }
 

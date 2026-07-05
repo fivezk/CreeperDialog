@@ -28,15 +28,6 @@ public final class FunConfig {
         plugin.saveConfig();
     }
 
-    public boolean penisBuilderEnabled() {
-        return plugin.getConfig().getBoolean("features.penis-builder.enabled", false);
-    }
-
-    public void setPenisBuilderEnabled(boolean enabled) {
-        plugin.getConfig().set("features.penis-builder.enabled", enabled);
-        plugin.saveConfig();
-    }
-
     public int integer(String path, int fallback) {
         return plugin.getConfig().getInt(path, fallback);
     }

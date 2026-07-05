@@ -3,8 +3,6 @@ features:
     enabled: true
   tnt-reset:
     enabled: false
-  penis-builder:
-    enabled: false
 
 tnt-reset:
   animation:
