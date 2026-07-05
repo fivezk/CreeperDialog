@@ -3,6 +3,8 @@ package de.fivezk.fun.menu;
 import de.fivezk.fun.creeper.service.CreeperDialogService;
 import de.fivezk.fun.penis.service.PenisBuilderService;
 import de.fivezk.fun.tnt.service.TntResetService;
+import de.fivezk.fun.wand.WandType;
+import de.fivezk.fun.wand.service.WandService;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,12 +16,14 @@ public final class FunMenuListener implements Listener {
     private final CreeperDialogService creeperDialogService;
     private final TntResetService tntResetService;
     private final PenisBuilderService penisBuilderService;
+    private final WandService wandService;
 
-    public FunMenuListener(FunMenu funMenu, CreeperDialogService creeperDialogService, TntResetService tntResetService, PenisBuilderService penisBuilderService) {
+    public FunMenuListener(FunMenu funMenu, CreeperDialogService creeperDialogService, TntResetService tntResetService, PenisBuilderService penisBuilderService, WandService wandService) {
         this.funMenu = funMenu;
         this.creeperDialogService = creeperDialogService;
         this.tntResetService = tntResetService;
         this.penisBuilderService = penisBuilderService;
+        this.wandService = wandService;
     }
 
     @EventHandler
@@ -54,6 +58,18 @@ public final class FunMenuListener implements Listener {
 
         if (event.getRawSlot() == FunMenu.RESET_SLOT && tntResetService.enabled()) {
             tntResetService.reset(player);
+            player.closeInventory();
+            return;
+        }
+
+        if (event.getRawSlot() == FunMenu.WITHER_WAND_SLOT) {
+            wandService.give(player, WandType.WITHER_SKULL);
+            player.closeInventory();
+            return;
+        }
+
+        if (event.getRawSlot() == FunMenu.FIREBALL_WAND_SLOT) {
+            wandService.give(player, WandType.FIREBALL);
             player.closeInventory();
         }
     }

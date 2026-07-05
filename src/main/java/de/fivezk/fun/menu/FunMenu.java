@@ -3,6 +3,7 @@ package de.fivezk.fun.menu;
 import de.fivezk.fun.creeper.service.CreeperDialogService;
 import de.fivezk.fun.penis.service.PenisBuilderService;
 import de.fivezk.fun.tnt.service.TntResetService;
+import de.fivezk.fun.wand.WandType;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
@@ -21,6 +22,8 @@ public final class FunMenu {
     public static final int PENIS_SLOT = 13;
     public static final int TNT_SLOT = 15;
     public static final int RESET_SLOT = 24;
+    public static final int WITHER_WAND_SLOT = 30;
+    public static final int FIREBALL_WAND_SLOT = 32;
     private final CreeperDialogService creeperDialogService;
     private final TntResetService tntResetService;
     private final PenisBuilderService penisBuilderService;
@@ -60,6 +63,17 @@ public final class FunMenu {
                     )
             ));
         }
+
+        inventory.setItem(WITHER_WAND_SLOT, createItem(
+                Material.STICK,
+                Component.text("Wither Kopf Stab", NamedTextColor.DARK_PURPLE),
+                List.of(Component.text("Gibt dir einen Stab für Wither-Köpfe.", NamedTextColor.GRAY))
+        ));
+        inventory.setItem(FIREBALL_WAND_SLOT, createItem(
+                Material.STICK,
+                Component.text("Ghast Feuerball Stab", NamedTextColor.GOLD),
+                List.of(Component.text("Gibt dir einen Stab für Ghast-Feuerbälle.", NamedTextColor.GRAY))
+        ));
 
         player.openInventory(inventory);
     }

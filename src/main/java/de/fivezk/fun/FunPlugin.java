@@ -12,6 +12,8 @@ import de.fivezk.fun.menu.FunMenuListener;
 import de.fivezk.fun.penis.service.PenisBuilderService;
 import de.fivezk.fun.tnt.listener.TntExplosionListener;
 import de.fivezk.fun.tnt.service.TntResetService;
+import de.fivezk.fun.wand.listener.WandListener;
+import de.fivezk.fun.wand.service.WandService;
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.PluginManager;
@@ -24,6 +26,7 @@ public final class FunPlugin extends JavaPlugin {
     private CreeperDialogService creeperDialogService;
     private TntResetService tntResetService;
     private PenisBuilderService penisBuilderService;
+    private WandService wandService;
 
     @Override
     public void onEnable() {
@@ -36,6 +39,7 @@ public final class FunPlugin extends JavaPlugin {
         creeperDialogService = new CreeperDialogService(this, config, creeperExplosionDialog);
         tntResetService = new TntResetService(this, config);
         penisBuilderService = new PenisBuilderService(config);
+        wandService = new WandService(this);
         FunMenu funMenu = new FunMenu(creeperDialogService, tntResetService, penisBuilderService);
 
         PluginManager pluginManager = Bukkit.getPluginManager();
@@ -43,7 +47,8 @@ public final class FunPlugin extends JavaPlugin {
         pluginManager.registerEvents(new CreeperDialogClickListener(creeperDialogService), this);
         pluginManager.registerEvents(new PlayerConnectionListener(creeperDialogService), this);
         pluginManager.registerEvents(new TntExplosionListener(tntResetService), this);
-        pluginManager.registerEvents(new FunMenuListener(funMenu, creeperDialogService, tntResetService, penisBuilderService), this);
+        pluginManager.registerEvents(new WandListener(wandService), this);
+        pluginManager.registerEvents(new FunMenuListener(funMenu, creeperDialogService, tntResetService, penisBuilderService, wandService), this);
 
         FunCommand funCommand = new FunCommand(funMenu);
         PluginCommand command = Objects.requireNonNull(getCommand("fun"));

@@ -36,8 +36,10 @@ public final class PenisBuilderService {
         ThreadLocalRandom random = ThreadLocalRandom.current();
 
         for (int i = 0; i < 100; i++) {
-            double x = center.getX() + random.nextDouble(-100.0, 100.0);
-            double z = center.getZ() + random.nextDouble(-100.0, 100.0);
+            double angle = random.nextDouble(0.0, Math.PI * 2.0);
+            double radius = Math.sqrt(random.nextDouble()) * 100.0;
+            double x = center.getX() + Math.cos(angle) * radius;
+            double z = center.getZ() + Math.sin(angle) * radius;
             double y = Math.min(world.getMaxHeight() - 6.0, center.getY() + random.nextDouble(35.0, 70.0));
             Location origin = new Location(world, x, y, z);
             spawnStructure(origin);
