@@ -99,9 +99,15 @@ public final class TntResetService {
                     location.getWorld().playSound(location, Sound.BLOCK_WOOD_PLACE, 0.45f, 1.25f);
                 }
 
+                int remainingBlocks = Math.max(0, states.size() - index);
+                player.sendActionBar(Component.text("TNT Reset: ", NamedTextColor.GOLD)
+                        .append(Component.text(remainingBlocks, NamedTextColor.YELLOW))
+                        .append(Component.text(" Blöcke übrig", NamedTextColor.GRAY)));
+
                 if (index >= states.size()) {
                     resetTask.cancel();
                     resetTask = null;
+                    player.sendActionBar(Component.text("TNT Reset abgeschlossen", NamedTextColor.GREEN));
                     player.sendMessage(Component.text("Explodierte Blöcke zurückgesetzt.", NamedTextColor.GREEN));
                     player.sendMessage(Component.text("Blöcke: ", NamedTextColor.GRAY)
                             .append(Component.text(totalBlocks, NamedTextColor.YELLOW)));
